@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="AoCUtils/AoCUtils.csproj" />
   <Project Path="Day00/Day00.csproj" />
+  <Project Path="Day01/Day01.csproj" />
 </Solution>
