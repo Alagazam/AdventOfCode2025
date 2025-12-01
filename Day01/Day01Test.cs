@@ -19,7 +19,7 @@ R14
 L82";
 
         readonly Int64 resultA = 3;
-        readonly Int64 resultB = 0;
+        readonly Int64 resultB = 6;
 
         [Fact]
         public void Day01a()
@@ -50,6 +50,40 @@ L82";
         {
             var converter = new AoCUtils.Converter(output);
             Console.SetOut(converter);
+        }
+
+        [Fact]
+        public void TurnTest()
+        {
+            var dial = 0;
+            dial = 0; Assert.Equal(0, Day01.Turn(ref dial, 0)); Assert.Equal(0, dial);
+            dial = 0; Assert.Equal(0, Day01.Turn(ref dial, 10)); Assert.Equal(10, dial);
+            dial = 0; Assert.Equal(1, Day01.Turn(ref dial, 100)); Assert.Equal(0, dial);
+            dial = 0; Assert.Equal(1, Day01.Turn(ref dial, 110)); Assert.Equal(10, dial);
+            dial = 0; Assert.Equal(2, Day01.Turn(ref dial, 210)); Assert.Equal(10, dial);
+
+            dial = 10; Assert.Equal(0, Day01.Turn(ref dial, 0)); Assert.Equal(10, dial);
+            dial = 10; Assert.Equal(0, Day01.Turn(ref dial, 10)); Assert.Equal(20, dial);
+            dial = 10; Assert.Equal(1, Day01.Turn(ref dial, 90)); Assert.Equal(0, dial);
+            dial = 10; Assert.Equal(1, Day01.Turn(ref dial, 100)); Assert.Equal(10, dial);
+            dial = 10; Assert.Equal(1, Day01.Turn(ref dial, 110)); Assert.Equal(20, dial);
+            dial = 10; Assert.Equal(2, Day01.Turn(ref dial, 210)); Assert.Equal(20, dial);
+        }
+        [Fact]
+        public void TurnBackTest()
+        {
+            var dial = 0;
+            dial = 0; Assert.Equal(0, Day01.Turn(ref dial, 0)); Assert.Equal(0, dial);
+            dial = 0; Assert.Equal(0, Day01.Turn(ref dial, -10)); Assert.Equal(90, dial);
+            dial = 0; Assert.Equal(1, Day01.Turn(ref dial, -100)); Assert.Equal(0, dial);
+            dial = 0; Assert.Equal(1, Day01.Turn(ref dial, -110)); Assert.Equal(90, dial);
+            dial = 0; Assert.Equal(2, Day01.Turn(ref dial, -210)); Assert.Equal(90, dial);
+
+            dial = 10; Assert.Equal(1, Day01.Turn(ref dial, -10)); Assert.Equal(0, dial);
+            dial = 10; Assert.Equal(1, Day01.Turn(ref dial, -90)); Assert.Equal(20, dial);
+            dial = 10; Assert.Equal(1, Day01.Turn(ref dial, -100)); Assert.Equal(10, dial);
+            dial = 10; Assert.Equal(2, Day01.Turn(ref dial, -110)); Assert.Equal(0, dial);
+            dial = 10; Assert.Equal(3, Day01.Turn(ref dial, -210)); Assert.Equal(0, dial);
         }
 
     }
