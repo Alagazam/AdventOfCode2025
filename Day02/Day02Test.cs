@@ -11,7 +11,7 @@ namespace AoC
                                 "824824821-824824827,2121212118-2121212124";
 
         readonly Int64 resultA = 1227775554;
-        readonly Int64 resultB = 0;
+        readonly Int64 resultB = 4174379265;
 
         [Fact]
         public void Day02a()
@@ -42,6 +42,28 @@ namespace AoC
         {
             var converter = new AoCUtils.Converter(output);
             Console.SetOut(converter);
+        }
+
+        [Fact]
+        public void IsValid1Test()
+        {
+            Assert.True(Day02.IsValidId1(11));
+            Assert.True(Day02.IsValidId1(1212));
+            Assert.True(Day02.IsValidId1(1188511885));
+            Assert.False(Day02.IsValidId1(2121212121));
+            Assert.False(Day02.IsValidId1(11881885));
+            Assert.False(Day02.IsValidId1(446445));
+        }
+
+        [Fact]
+        public void IsValid2Test()
+        {
+            Assert.True(Day02.IsValidId2(11));
+            Assert.True(Day02.IsValidId2(1212));
+            Assert.True(Day02.IsValidId2(1188511885));
+            Assert.True(Day02.IsValidId2(2121212121));
+            Assert.False(Day02.IsValidId2(11881885));
+            Assert.False(Day02.IsValidId2(446445));
         }
 
     }
