@@ -1,0 +1,60 @@
+using System.Diagnostics;
+using Xunit;
+using Xunit.Abstractions;
+
+namespace AoC
+{
+    public class Day03Test
+    {
+        readonly string input =
+@"987654321111111
+811111111111119
+234234234234278
+818181911112111
+";
+
+        readonly Int64 resultA = 357;
+        readonly Int64 resultB = 0;
+
+        [Fact]
+        public void Day03a()
+        {
+            var sw = Stopwatch.StartNew();
+            var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+            var result = Day03.Day03a(lines);
+            Assert.Equal(resultA, result);
+
+            Console.WriteLine("Day03a : {0}   Time: {1}", result, sw.ElapsedMilliseconds);
+        }
+
+
+        [Fact]
+        public void Day03b()
+        {
+            var sw = Stopwatch.StartNew();
+            var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+            var result = Day03.Day03b(lines);
+            Assert.Equal(resultB, result);
+
+            Console.WriteLine("Day03b : {0}   Time: {1}", result, sw.ElapsedMilliseconds);
+        }
+
+        public Day03Test(ITestOutputHelper output)
+        {
+            var converter = new AoCUtils.Converter(output);
+            Console.SetOut(converter);
+        }
+
+        [Fact]
+        public void JoltageTest()
+        {
+            Assert.Equal(98, Day03.joltage("987654321111111"));
+            Assert.Equal(89, Day03.joltage("811111111111119"));
+            Assert.Equal(78, Day03.joltage("234234234234278"));
+            Assert.Equal(92, Day03.joltage("818181911112111"));
+        }
+    }
+
+}
