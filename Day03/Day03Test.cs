@@ -14,7 +14,7 @@ namespace AoC
 ";
 
         readonly Int64 resultA = 357;
-        readonly Int64 resultB = 0;
+        readonly Int64 resultB = 3121910778619;
 
         [Fact]
         public void Day03a()
@@ -54,6 +54,20 @@ namespace AoC
             Assert.Equal(89, Day03.joltage("811111111111119"));
             Assert.Equal(78, Day03.joltage("234234234234278"));
             Assert.Equal(92, Day03.joltage("818181911112111"));
+        }
+
+        [Fact]
+        public void HighJoltageTest()
+        {
+            Assert.Equal(98, Day03.highJoltage("987654321",2));
+            Assert.Equal(9876, Day03.highJoltage("987654", 4));
+            Assert.Equal(89, Day03.highJoltage("8119", 2));
+            Assert.Equal(99, Day03.highJoltage("8989", 2));
+            Assert.Equal(4342, Day03.highJoltage("42342", 4));
+            Assert.Equal(987654321111, Day03.highJoltage("987654321111111", 12));
+            Assert.Equal(811111111119, Day03.highJoltage("811111111111119", 12));
+            Assert.Equal(434234234278, Day03.highJoltage("234234234234278", 12));
+            Assert.Equal(888911112111, Day03.highJoltage("818181911112111", 12));
         }
     }
 

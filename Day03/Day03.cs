@@ -27,9 +27,30 @@ namespace AoC
             return int.Parse(res);
         }
 
+        public static Int64 highJoltage(string s, int n)
+        {
+            String res = "";
+            var index = 0;
+
+            for (int i = 0; i != n; i++)
+            {
+                var digit = s.Substring(index, (s.Length - index) - (n - i - 1)) .Max();
+                index += s.Substring(index).IndexOf(digit) + 1;
+
+                res += digit;
+            }
+
+            return Int64.Parse(res);
+        }
+
         public static Int64 Day03b(string[] input)
         {
-            return 0;
+            Int64 sum = 0;
+            foreach (var s in input)
+            {
+                sum += highJoltage(s, 12);
+            }
+            return sum;
         }
 
 
