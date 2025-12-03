@@ -50,10 +50,10 @@ namespace AoC
         [Fact]
         public void JoltageTest()
         {
-            Assert.Equal(98, Day03.joltage("987654321111111"));
-            Assert.Equal(89, Day03.joltage("811111111111119"));
-            Assert.Equal(78, Day03.joltage("234234234234278"));
-            Assert.Equal(92, Day03.joltage("818181911112111"));
+            Assert.Equal(98, Day03.highJoltage("987654321111111", 2));
+            Assert.Equal(89, Day03.highJoltage("811111111111119", 2));
+            Assert.Equal(78, Day03.highJoltage("234234234234278", 2));
+            Assert.Equal(92, Day03.highJoltage("818181911112111", 2));
         }
 
         [Fact]
