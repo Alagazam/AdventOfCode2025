@@ -12,10 +12,26 @@ namespace AoC
 
         public static Int64 Day04a(string[] input)
         {
+            return remove(input, false);
+        }
+
+        public static Int64 Day04b(string[] input)
+        {
+            Int64 result = 0;
+            Int64 removed = 0;
+            do
+            {
+                removed = remove(input, true);
+                result += removed;
+            } while (removed != 0);
+            return result;
+        }
+
+        private static Int64 remove(string[] input, bool doRemove)
+        {
             Int64 result = 0;
             for (var row = 0; row != input.Length; ++row)
             {
-                string s = "";
                 for (var col = 0; col != input[row].Length; ++col)
                 {
                     if (input[row][col] == '@')
@@ -25,31 +41,25 @@ namespace AoC
                         {
                             var r = row + dir.Item2;
                             var c = col + dir.Item1;
-                            if (r >= 0 && r < input.Length && 
+                            if (r >= 0 && r < input.Length &&
                                 c >= 0 && c < input[r].Length &&
                                 input[r][c] == '@') neighbours++;
                         }
                         if (neighbours <= 4) // Include itself
                         {
                             result++;
-                            s+='x';
+                            if (doRemove)
+                            {
+                                System.Text.StringBuilder s = new System.Text.StringBuilder(input[row]);
+                                s[col] = '.';
+                                input[row] = s.ToString();
+                            }
                         }
-                        else
-                            s+=input[row][col];
                     }
-                    else
-                        s += input[row][col];
                 }
-                Console.WriteLine(s);
             }
             return result;
         }
-
-        public static Int64 Day04b(string[] input)
-        {
-            return 0;
-        }
-
 
         static void Main(string[] args)
         {
