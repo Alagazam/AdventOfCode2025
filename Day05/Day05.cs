@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Xunit.Sdk;
 
 namespace AoC
 {
@@ -34,7 +35,43 @@ namespace AoC
 
         public static Int64 Day05b(string[] input)
         {
-            return 0;
+            List<(Int64, Int64)> ranges = new List<(Int64, Int64)>();
+
+            foreach (var s in input)
+            {
+                if (s.Length == 0) break;
+                var items = s.Split('-');
+                if (items.Length == 2) ranges.Add((Int64.Parse(items[0]), Int64.Parse(items[1])));
+            }
+
+            bool merged = false;
+            int index = 0;
+            do
+            {
+                merged = false;
+
+                var a = ranges[index];
+                for (int i = index+1; i < ranges.Count ; ++i)
+                {
+                    var b = ranges[i];
+                    if (a.Item2 >= b.Item1 && a.Item1 <= b.Item2)
+                    {
+                        merged = true;
+                        ranges[index] = (Math.Min(a.Item1, b.Item1), Math.Max(a.Item2, b.Item2));
+                        ranges.RemoveAt(i);
+                        break;
+                    }
+                }
+                if (!merged) index++;
+            } while (merged || index < ranges.Count);
+
+            Int64 result = 0;
+            foreach (var r in ranges)
+            {
+                result += r.Item2 - r.Item1 + 1;
+            }
+
+            return result;
         }
 
 
