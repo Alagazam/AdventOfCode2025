@@ -1,0 +1,50 @@
+﻿using System.Diagnostics;
+
+namespace AoC
+{
+    public static class Day05
+    {
+        public static Int64 Day05a(string[] input)
+        {
+            List<(Int64, Int64)> ranges = new List<(Int64, Int64)> ();
+            List<Int64> ids = new List<Int64>();
+
+            foreach (var s in input)
+            {
+                if (s.Length == 0) continue;
+                var items = s.Split('-');
+                if (items.Length == 2) ranges.Add((Int64.Parse(items[0]), Int64.Parse(items[1])));
+                if (items.Length == 1) ids.Add(Int64.Parse(items[0]));
+            }
+
+            Int64 result = 0;
+            foreach(var id in ids)
+            {
+                foreach(var range in ranges)
+                {
+                    if (range.Item1 <= id && id <= range.Item2)
+                    {
+                        ++result; 
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static Int64 Day05b(string[] input)
+        {
+            return 0;
+        }
+
+
+        static void Main(string[] args)
+        {
+            var lines = File.ReadAllLines("Day05.txt");
+            var sw = Stopwatch.StartNew();
+            Console.WriteLine("Day05a : {0}   Time: {1}", Day05a(lines), sw.ElapsedMilliseconds);
+            sw.Restart();
+            Console.WriteLine("Day05b : {0}   Time: {1}", Day05b(lines), sw.ElapsedMilliseconds);
+        }
+    }
+}
