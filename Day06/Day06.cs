@@ -36,7 +36,42 @@ namespace AoC
 
         public static Int64 Day06b(string[] input)
         {
-            return 0;
+            Int64 result = 0;
+            string[] flipped = new  string[input[0].Length +1];
+            for (var col = 0; col != input[0].Length; ++col)
+            {
+                var s = "" + input[0][col] + input[1][col] + input[2][col] + input[3][col];
+                if (input.Length == 5)
+                {
+                    s += input[4][col];
+                }
+                flipped[col] = s;
+            }
+            flipped[input[0].Length] = "     ";
+
+            bool mul = false;
+            Int64 tot = 0;
+            foreach (var s in flipped)
+            {
+                if (s[0] == ' ' && s[1] == ' ' && s[2] == ' ' && s[3] == ' ')
+                {
+                    result += tot;
+                    mul = false;
+                    tot = 0;
+                }
+                else
+                {
+                    Int64 x = 0;
+                    if (s[s.Length - 1] == '*') { mul = true; tot = 1; }
+                    var ss = s.Substring(0, s.Length - 1).Trim();
+                    x = Int64.Parse(ss);
+                    if (mul) tot *= x;
+                    else tot += x;
+                }
+            }
+
+
+            return result;
         }
 
 

@@ -14,7 +14,7 @@ namespace AoC
 ";
 
         readonly Int64 resultA = 4277556;
-        readonly Int64 resultB = 0;
+        readonly Int64 resultB = 3263827;
 
         [Fact]
         public void Day06a()
