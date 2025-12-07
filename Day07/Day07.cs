@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 
 namespace AoC
 {
@@ -28,7 +29,23 @@ namespace AoC
 
         public static Int64 Day07b(string[] input)
         {
-            return 0;
+            Int64[] beams = new Int64[input[0].Length];
+            Int64 result = 0;
+            foreach (var (i, row) in input.Select((i, row) => (i, row)))
+            {
+                foreach (var (c, n) in i.Select((c, n) => (c, n)))
+                {
+                    if (c == 'S') beams[n] = 1;
+                    else if (c == '^' && beams[n] >0)
+                    {
+                        beams[n - 1] += beams[n];
+                        beams[n + 1] += beams[n];
+                        beams[n] = 0;
+                    }
+                }
+            }
+            result = beams.Sum();
+            return result;
         }
 
 
