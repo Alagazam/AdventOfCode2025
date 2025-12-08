@@ -18,26 +18,9 @@ namespace AoC
 
         public static Int64 Day08a(string[] input, int iter = 1000)
         {
-            var boxes = new List<Point>();
-            foreach (var i in input)
-            {
-                var coords = i.Split(',').Select(c => Int64.Parse(c)).ToList();
-                boxes.Add(new Point(coords[0], coords[1], coords[2]));
-            }
-
-            var distances = new List<Dist>();
-            for (var i = 0; i != boxes.Count - 1; ++i) {
-                for (var j = i+1; j != boxes.Count; ++j) {
-                    distances.Add(new Dist(boxes[i], boxes[j], dist(boxes[i], boxes[j])));
-                }
-            }
-            distances.Sort((p1, p2) => { return p1.d.CompareTo(p2.d); });
-
-            var circuts = new List<List<Point>>();
-            foreach (var b in boxes)
-            {
-                circuts.Add(new List<Point>() { b });
-            }
+            List<Dist> distances;
+            List<List<Point>> circuts;
+            Prepare(input, out distances, out circuts);
 
             while (iter > 0)
             {
@@ -55,14 +38,62 @@ namespace AoC
                 iter--;
             }
 
-            circuts.Sort((c1, c2) => { return c2.Count().CompareTo(c1.Count()); });
+            circuts.Sort((c1, c2) => { return c2.Count.CompareTo(c1.Count); });
 
 
-            return circuts[0].Count() * circuts[1].Count() * circuts[2].Count();
+            return circuts[0].Count * circuts[1].Count * circuts[2].Count;
+        }
+
+        private static void Prepare(string[] input, out List<Dist> distances, out List<List<Point>> circuts)
+        {
+            var boxes = new List<Point>();
+            foreach (var i in input)
+            {
+                var coords = i.Split(',').Select(c => Int64.Parse(c)).ToList();
+                boxes.Add(new Point(coords[0], coords[1], coords[2]));
+            }
+
+            distances = new List<Dist>();
+            for (var i = 0; i != boxes.Count - 1; ++i)
+            {
+                for (var j = i + 1; j != boxes.Count; ++j)
+                {
+                    distances.Add(new Dist(boxes[i], boxes[j], dist(boxes[i], boxes[j])));
+                }
+            }
+            distances.Sort((p1, p2) => { return p1.d.CompareTo(p2.d); });
+
+            circuts = new List<List<Point>>();
+            foreach (var b in boxes)
+            {
+                circuts.Add(new List<Point>() { b });
+            }
         }
 
         public static Int64 Day08b(string[] input)
         {
+            List<Dist> distances;
+            List<List<Point>> circuts;
+            Prepare(input, out distances, out circuts);
+
+            while (circuts.Count > 1)
+            {
+                var toJoin = distances.First();
+                distances.RemoveAt(0);
+
+                var c1 = circuts.Find(l => l.Contains(toJoin.p1));
+                var c2 = circuts.Find(l => l.Contains(toJoin.p2));
+                if (c1 != c2 && c1 != null && c2 != null)
+                {
+                    c1.AddRange(c2);
+                    circuts.Remove(c2);
+                }
+
+                if (circuts.Count == 1)
+                {
+                    return toJoin.p1.x * toJoin.p2.x;
+                }
+            }
             return 0;
         }
 
